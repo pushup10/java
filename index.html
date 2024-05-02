@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dataset1</title>
+  </head>
+  <body>
+    <h2>CONTROL</h2>
+    <pre><code>
+        import javafx.application.Application;
+        import javafx.stage.Stage;
+        import javafx.scene.Scene;
+        import javafx.scene.control.Label;
+        import javafx.scene.control.Button;
+        import javafx.scene.layout.FlowPane;
+        import javafx.geometry.Pos;
+        import javafx.event.EventHandler;
+        import javafx.event.ActionEvent;
+        
+        public class Main extends Application {
+            public static void main(String[] args) {
+                launch(args);
+            }
+        
+            public void start(Stage mystage) {
+                mystage.setTitle("FX controls");
+                FlowPane root = new FlowPane();
+                Scene myscene = new Scene(root, 200, 200);
+                mystage.setScene(myscene);
+                mystage.show();
+                Button name = new Button("name");
+                Button age = new Button("age");
+                Label l = new Label("push a button");
+        
+                name.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent ae) {
+                        l.setText("name is pressed");
+                    }
+                });
+        
+                age.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent ae) {
+                        l.setText("age is pressed");
+                    }
+                });
+        
+                root.getChildren().addAll(name, age,l);
+            }
+        }
+        
+        
+        
+       
+    </code></pre>
+    <h2>FLOWPANE</h2>
+    <pre><code>
+        import javafx.application.*;
+        import javafx.scene.*;
+        import javafx.stage.*;
+        import javafx.scene.layout.*;
+        import javafx.scene.control.*;
+        
+        public class Main extends Application { 
+            public static void main(String[] args) {
+                launch(args);
+            }
+        
+            public void start(Stage myStage) {
+                myStage.setTitle("Demonstrate FlowPane Length");
+        
+                Label one = new Label("Label 1");
+                Label two = new Label("Label 2");
+                Label three = new Label("Label 3"); 
+                Label four = new Label("Label 4");
+                Label five = new Label("Label 5");
+                Label six = new Label("Label 6");
+                Label seven = new Label("Label 7");
+                Label eight = new Label("Label 8"); 
+                Label nine = new Label("Label 9");
+        
+                FlowPane labelPane = new FlowPane(10,20); 
+                labelPane.getChildren().addAll(one, two, three, four, five, six, seven, eight, nine);
+                labelPane.setPrefWrapLength(200); 
+                FlowPane rootNode = new FlowPane(); 
+                rootNode.getChildren().add(labelPane);
+        
+                Scene myScene = new Scene(rootNode,400,300);
+                myStage.setScene(myScene);
+                myStage.show();
+            }
+        }
+        
+        
+        
+            
+    </code></pre>
+
+    <h2>MENU</h2>
+    <pre><code>
+        import javafx.application.*; 
+        import javafx.scene.*; 
+        import javafx.stage.*; 
+        import javafx.scene.layout.*; 
+        import javafx.scene.control.*;
+        import javafx.event.*; 
+        import javafx.geometry.*;
+        
+        public class Main extends Application {
+          Label response;
+          public static void main(String[] args) {
+            launch(args);
+          }
+        
+        public void start(Stage myStage) {
+             myStage.setTitle("Menus");
+             BorderPane rootNode = new BorderPane();
+             Scene myScene = new Scene(rootNode, 400, 300);
+             myStage.setScene(myScene);
+             response = new Label("Click on anything");
+        
+        MenuBar mb = new MenuBar();
+        Menu fileMenu =    new Menu("File");
+        MenuItem open =    new MenuItem("Open");
+        MenuItem close = new MenuItem("Close"); 
+        MenuItem save = new MenuItem("Save"); 
+        MenuItem exit = new MenuItem("Exit"); 
+        fileMenu.getItems().addAll(open, close, save, exit);
+        mb.getMenus().add(fileMenu);
+        
+        
+        Menu optionsMenu = new Menu("Options");
+        Menu colorsMenu = new Menu("Colors"); 
+        MenuItem red = new MenuItem("Red"); 
+        MenuItem green = new MenuItem("Green"); 
+        MenuItem blue = new MenuItem("Blue");
+        colorsMenu.getItems().addAll(red, green, blue);
+        optionsMenu.getItems().add(colorsMenu);
+        Menu priorityMenu = new Menu("Priority");
+        MenuItem high = new MenuItem("High");
+        MenuItem low = new MenuItem("Low");
+        priorityMenu.getItems().addAll(high, low);
+        optionsMenu.getItems().add(priorityMenu);
+        
+        optionsMenu.getItems().add(new SeparatorMenuItem());
+        MenuItem reset = new MenuItem("Reset");
+            optionsMenu.getItems().add(reset);
+            mb.getMenus().add(optionsMenu);
+        
+        
+        
+        Menu helpMenu = new Menu("Help");
+        MenuItem about = new MenuItem("About");
+          MenuItem contact = new MenuItem("Contact");
+          helpMenu.getItems().add(about);
+          helpMenu.getItems().addAll(contact);
+          mb.getMenus().add(helpMenu);
+        
+        
+        
+            EventHandler<'ActionEvent> MEHandler =new EventHandler<'ActionEvent>() {
+              public void handle(ActionEvent ae) {
+                String name = ((MenuItem)ae.getTarget()).getText();
+                if(name.equals("Exit")) 
+                  Platform.exit();
+                  response.setText( name + " selected");
+                }
+          };
+          open.setOnAction(MEHandler); 
+          close.setOnAction(MEHandler);
+          save.setOnAction(MEHandler); 
+          exit.setOnAction(MEHandler);
+          red.setOnAction(MEHandler); 
+          green.setOnAction(MEHandler);
+          blue.setOnAction(MEHandler); 
+          high.setOnAction(MEHandler);
+          low.setOnAction(MEHandler); 
+          reset.setOnAction(MEHandler);
+          about.setOnAction(MEHandler);
+          
+               rootNode.setTop(mb); 
+               rootNode.setCenter(response);
+          
+              myStage.show();
+          }
+          }
+          
+        
+        
+        
+        
+    </code></pre>
+    <h1>TWOTHREAD</h1>
+    <pre><code>
+        class AlphabetPrinter extends Thread { private final char startChar;
+            private final int sleepTime;
+            public AlphabetPrinter(char startChar, int sleepTime) { this.startChar = startChar;
+            this.sleepTime = sleepTime;
+            }
+            @Override public void run() {
+            for (char c = startChar; c >= 'A' && c <= 'Z'; c = (char) (startChar < 'Z' ? c + 1 : c - 1)) {
+            synchronized (Main.lock) { System.out.println(c); Main.lock.notify();
+            } try {
+            Thread.sleep(sleepTime); synchronized (Main.lock) {
+            if (c != 'Z') Main.lock.wait(); }
+            } catch (InterruptedException e) {
+                e.printStackTrace(); }
+            } }
+            }
+          public class Main {
+              static final Object lock = new Object();
+               public static void main(String[] args) {
+                   AlphabetPrinter firstThread = new AlphabetPrinter('A', 1000); AlphabetPrinter secondThread = new AlphabetPrinter('Z', 2000);
+                        firstThread.start(); secondThread.start();
+                   try {
+         firstThread.join(); secondThread.join();
+          } catch (InterruptedException e) { e.printStackTrace();
+            } System.out.println("All threads finished execution."); }
+        }
+    
+    </code></pre>
+    <h2>MULTITHREAD</h2>
+    <pre><code>
+        import java.util.Random;
+class R extends Thread { public void run() {
+Random r = new Random(); while (true) {
+int n = r.nextInt(100);
+if (n % 2 == 0) synchronized (M.l) { M.e = n; M.l.notifyAll(); }
+else synchronized (M.l) { M.o = n; M.l.notifyAll(); }
+try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+} }
+}
+class S extends Thread { public void run() {
+while (true) { synchronized (M.l) {
+while (M.e == -1) { try { M.l.wait(); } catch (InterruptedException e) { e.printStackTrace(); } }
+System.out.println("Square of " + M.e + ": " + (M.e * M.e)); M.e
+= -1;
+} }
+} }
+class C extends Thread { public void run() {
+while (true) { synchronized (M.l) {
+while (M.o == -1) { try { M.l.wait(); } catch (InterruptedException e) { e.printStackTrace(); } }
+System.out.println("Cube of " + M.o + ": " + (M.o * M.o * M.o)); M.o = -1;
+} }
+} }
+class M {
+static final Object l = new Object(); static int e = -1, o = -1;
+public static void main(String[] args) {
+new R().start(); new S().start(); new C().start();
+} }
+
+        
+    </code></pre>
+    <h2></h2>
+    <code><pre>
+
+import java.io.*;
+public class FileCopy {
+public static void main(String[] args) {
+
+String sourceFilePath = "source.txt";
+String destinationFilePath = "destination.txt";
+try {
+
+FileInputStream fileInputStream = new FileInputStream(sourceFilePath);
+FileOutputStream fileOutputStream = new FileOutputStream(destinationFilePath);
+
+ int bytesRead;
+byte[] buffer = new byte[1024];
+while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+fileOutputStream.write(buffer, 0, bytesRead); }
+fileInputStream.close(); fileOutputStream.close();
+System.out.println("File copied successfully."); } catch (IOException e) {
+System.out.println("An error occurred: " + e.getMessage()); }
+} }
+
+    </pre></code>
+  </body>
+</html>
